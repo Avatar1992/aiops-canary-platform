@@ -4,7 +4,7 @@ import os
 
 LOKI_URL = os.getenv("LOKI_URL", "http://loki:3100")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = os.getenv("GITHUB_REPO")  # avatar1992/aiops-canary-platform
+REPO = os.getenv("Avatar1992/aiops-canary-platform")
 
 def query_error_rate():
     query = 'count_over_time({job="app"} |= "ERROR" [1m])'
