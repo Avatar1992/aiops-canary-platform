@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-anomaly-detector
+  namespace: canary
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: detector
+            image: aiops-detector:1.0
+            env:
+            - name: LOKI_URL
+              value: http://loki:3100
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: token
+            - name: GITHUB_REPO
+              value: avatar1992/aiops-canary-platform
+          restartPolicy: OnFailure
+
